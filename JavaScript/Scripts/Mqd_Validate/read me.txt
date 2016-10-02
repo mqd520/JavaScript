@@ -25,6 +25,16 @@
 							参数:	e	Object	回调成功后返回的数据
 }
 
+当type取值mqd.validate.type.range时,arg值如下：
+"1,3"	1=最小值	2=最大值
+
+当type取值mqd.validate.type.equal时,arg值如下：
+$("#id")
+
+当type取值mqd.validate.type.custom时,arg值如下：
+new RegExp("pattern","flags")
+
+
 
 
 Validator类参数数据结构如下：

@@ -85,6 +85,16 @@
                         error: "两次输入不一致!",
                         arg: $("#txt_equal1")
                     }]
+                },
+                {
+                    el: $("#txt_custom"),
+                    defRuleError: "必须填写!",
+                    tip: "custom",
+                    rules: [{
+                        type: mqd.validate.type.custom,
+                        error: "自定义规则输入不正确!",
+                        arg: new RegExp("^custom$", "gi")
+                    }]
                 }
             ]);
             $("#btn1").click(function () {
@@ -110,7 +120,7 @@
                     <input type="text" id="txt_phone" /></td>
             </tr>
             <tr>
-                <td align="right">网站:</td>
+                <td align="right">网址:</td>
                 <td>
                     <input type="text" id="txt_website" /></td>
             </tr>
@@ -138,6 +148,11 @@
                 <td align="right">相等2:</td>
                 <td>
                     <input type="text" id="txt_equal2" /></td>
+            </tr>
+            <tr>
+                <td align="right">自定义:</td>
+                <td>
+                    <input type="text" id="txt_custom" /></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>

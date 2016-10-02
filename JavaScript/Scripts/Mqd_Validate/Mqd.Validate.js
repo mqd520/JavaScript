@@ -308,6 +308,20 @@
                 case _ruleType.equal:
                     result = val == rule.arg.val().trim();
                     break;
+                case _ruleType.custom:
+                    var flags = "";
+                    if (rule.arg.global) {
+                        flags += "g";
+                    }
+                    if (rule.arg.ignoreCase) {
+                        flags += "i";
+                    }
+                    if (rule.arg.multiline) {
+                        flags += "m";
+                    }
+                    exp = new RegExp(rule.arg.source, flags);
+                    result = exp.test(val);
+                    break;
             }
             if (rule.fn != null) {
                 result = rule.fn.call(this);
