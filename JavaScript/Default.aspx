@@ -103,6 +103,15 @@
                         error: "请选择下拉框!",
                         arg: "0"
                     }]
+                },
+                {
+                    el: $("#txt_postcode"),
+                    defRuleError: "必须填写邮编!",
+                    tip: "邮编格式",
+                    rules: [{
+                        type: mqd.validate.type.postcode,
+                        error: "邮编格式不正确!"
+                    }]
                 }
             ]);
             $("#btn1").click(function () {
@@ -170,6 +179,11 @@
                         <option value="1">选项一</option>
                         <option value="2">选项二</option>
                     </select></td>
+            </tr>
+            <tr>
+                <td align="right">邮编:</td>
+                <td>
+                    <input type="text" id="txt_postcode" /></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>

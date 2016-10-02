@@ -338,6 +338,10 @@
                 case _ruleType.select:
                     result = val != rule.arg;
                     break;
+                case _ruleType.postcode:
+                    exp = /^[0-9]{5,6}$/gi;
+                    result = exp.test(val);
+                    break;
             }
             if (rule.fn != null) {
                 result = rule.fn.call(this);
