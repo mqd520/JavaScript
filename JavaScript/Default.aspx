@@ -13,51 +13,61 @@
         $(document).ready(function () {
             var validator = mqd.validate.create([
                 {
-                    el: $("#txt1"),
+                    el: $("#txt_mobile"),
                     tip: "提示信息1",
                     rules: [
                         {
-                            type: mqd.validate.type.required,
-                            error: "必填1"
-                        },
-                        {
                             type: mqd.validate.type.phone,
-                            error: "电话格式不正确！"
+                            error: "电话格式不正确!"
                         }
                     ]
                 },
                 {
-                    el: $("#txt2"),
+                    el: $("#txt_phone"),
                     tip: "提示信息2",
                     rules: [
                         {
                             type: mqd.validate.type.required,
-                            error: "必填1"
-                        },
-                        {
-                            type: mqd.validate.type.remote,
-                            error: "用户名或密码不正确！",
-                            arg: {
-                                url: "Handler1.ashx",
-                                data: { username: "admin", pwd: "admin" },
-                                dataType: "json"
-                            }
+                            error: "手机格式不正确!"
                         }
                     ]
                 },
                 {
-                    el: $("#txt3"),
+                    el: $("#txt_website"),
                     tip: "提示信息3",
                     rules: [
                         {
                             type: mqd.validate.type.email,
-                            error: "邮箱格式不正确！"
+                            error: "网址格式不正确！"
+                        }
+                    ]
+                },
+                {
+                    el: $("#txt_email"),
+                    tip: "提示信息4",
+                    rules: [
+                        {
+                            type: mqd.validate.type.email,
+                            error: "邮箱格式不正确!"
+                        }
+                    ]
+                },
+                {
+                    el: $("#txt_required"),
+                    tip: "提示信息5",
+                    rules: [
+                        {
+                            type: mqd.validate.type.email,
+                            error: "必须输入!"
                         }
                     ]
                 }
             ]);
             $("#btn1").click(function () {
-                validator.doValid();
+                validator.doValid(false);
+                if (validator.getValidResult()) {
+                    alert("验证通过");
+                }
             });
         });
     </script>
@@ -66,27 +76,33 @@
     <form id="form1" runat="server">
         <table>
             <tr>
-                <td>字段1:</td>
+                <td align="right">电话号码:</td>
                 <td>
-                    <input type="text" id="txt1" /></td>
+                    <input type="text" id="txt_mobile" /></td>
             </tr>
             <tr>
-                <td>字段2:</td>
+                <td align="right">手机:</td>
                 <td>
-                    <input type="text" id="txt2" /></td>
+                    <input type="text" id="txt_phone" /></td>
             </tr>
             <tr>
-                <td>字段3:</td>
+                <td align="right">网站:</td>
                 <td>
-                    <input type="text" id="txt3" /></td>
+                    <input type="text" id="txt_website" /></td>
             </tr>
             <tr>
-                <td>字段4:</td>
+                <td align="right">邮箱:</td>
                 <td>
-                    <input type="text" id="txt4" /></td>
+                    <input type="text" id="txt_email" /></td>
             </tr>
             <tr>
-                <td colspan="2">
+                <td align="right">必选:</td>
+                <td>
+                    <input type="text" id="txt_required" /></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>
                     <input type="button" id="btn1" value="提  交" />
                     <input type="submit" id="sub1" value="提  交" />
                 </td>

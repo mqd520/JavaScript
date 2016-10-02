@@ -1,0 +1,48 @@
+﻿mqd.validate.create()参数数据结构如下：
+[
+	{
+		el:				Object		需要验证的元素	必选	jQuery对象
+		tip:			String		用户输入时显示的提示信息	可选
+		rules:			Array		验证规则集合	必选
+		[
+			{
+				type:	Number		验证规则类型	必选	mqd.validate.type枚举值
+				error:	String		验证当前规则失败时显示的错误信息	必选
+				arg:	Object		配合type传给插件的用户自定义参数	可选
+				fn:		Function	用户自定义的验证回调函数,有当前验证规则的最终的验证成功与否的控制权
+									返回值：Bool	表示验证成功与否
+			}
+		]	
+	}
+]
+
+当type取值mqd.validate.type.remote时,arg参数参照$.ajax,但有如下改动
+{
+	para:		String		用于表示当前验证的元素的值的参数名	必选
+	fn:			Function	$.ajax回调成功后的回调函数	可选
+							返回值：Bool	表示验证成功与否
+							参数:	e	Object	回调成功后返回的数据
+}
+
+
+
+Validator类参数数据结构如下：
+[
+	{
+		el:				Object		需要验证的元素	必选	jQuery对象
+		tip:			String		用户输入时显示的提示信息	可选
+		rules:			Array		验证规则集合	必选
+		box:			Object		MessageBox对象,用于管理显示信息窗口
+		result:			Bool		表示验证结果
+		[
+			{
+				type:	Number		验证规则类型	必选	mqd.validate.type枚举值
+				error:	String		验证当前规则失败时显示的错误信息	必选
+				arg:	Object		配合type传给插件的用户自定义参数	可选
+				fn:		Function	用户自定义的验证回调函数,有最终的验证成功与否的控制权
+									返回值：Bool	表示验证成功与否
+			}
+		]	
+	}
+]
+

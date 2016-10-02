@@ -25,17 +25,14 @@
         /// <field name="remote" type="Number">远程数据</field>
         remote: 5,
 
+        /// <field name="website" type="Number">网站</field>
+        website: 6,
+
+        /// <field name="postcode" type="Number">邮编</field>
+        postcode: 7,
+
         /// <field name="custom" type="Number">自定义</field>
         custom: 100
-    };
-
-
-    var _options = {
-        /// <field name="tipMsg" type="String">提示信息</field>
-        tipMsg: "",
-
-        /// <field name="tipMsg" type="String">错误信息</field>
-        errMsg: ""
     };
 
     // 消息类型
@@ -50,7 +47,10 @@
         error: 3,
 
         /// <field name="ok" type="Number">完成</field>
-        ok: 4
+        ok: 4,
+
+        /// <field name="loading" type="Number">正在加载</field>
+        loading: 5
     };
 
 
@@ -69,7 +69,7 @@
         /// <param name="el" type="Object">需要验证的$对象</param>
 
         var that = this;
-        /// <field name="box" type="Object">消息框$对象</field>
+        // 消息框jQuery对象
         that.box = null;
 
         function getIcon(type) {
@@ -86,6 +86,9 @@
                     break;
                 case _mesType.ok:
                     icon = "ok.gif";
+                    break;
+                case _mesType.loading:
+                    icon = "loading.gif";
                     break;
                 default:
             }
@@ -125,13 +128,15 @@
                 height: "22px"
             });
             that.box.find("div.Mqd_Validate_InfoIcon").eq(0).css({
-                margin: "0px",
-                padding: "0px",
-                display: "block",
-                float: "left",
-                border: "0px solid red",
-                width: "22px",
-                height: "22px"
+                "margin": "0px",
+                "padding": "0px",
+                "display": "block",
+                "float": "left",
+                "border": "0px solid red",
+                "width": "22px",
+                "height": "22px",
+                "background-repeat": "no-repeat",
+                "background-position": "center"
             });
             that.box.find("div.Mqd_Validate_InfoHtml").eq(0).css({
                 "margin": "0px",
@@ -142,9 +147,10 @@
                 "width": "265px",
                 "height": "22px",
                 "line-height": "22px",
-                "font-size": "13px",
+                "font-size": "12px",
                 "over-flow": "hidden",
-                "padding-left": "5px"
+                "padding-left": "2px",
+                "font-family": "微软雅黑"
             });
         }
 
@@ -221,47 +227,74 @@
             return false;
         }
 
-        function vailRule(rule, el) {
+        function validRule(rule, el, box) {
             /// <summary>验证规则</summary>
-            /// <param name="type" type="Number">规则类型</param>
+            /// <param name="rule" type="Number">规则数据</param>
+            /// <param name="el" type="Number">验证元素对象</param>
+            /// <param name="box" type="Number">消息框对象</param>
+            var result = false;
             var val = el.val().trim();
             var exp;
             switch (rule.type) {
                 case _ruleType.required:
                     if (!isStringNull(val)) {
-                        return true;
+                        result = true;
+                    } else {
+                        result = false;
                     }
-                    return false;
+                    break;
+                case _ruleType.mobile:
+                    exp = /^1[3|4|5|8][0-9]\d{8}$/gi;
+                    result = exp.test(val);
+                    break;
+                case _ruleType.phone:
+                    exp = /^((0\d{2,3}-\d{7,8})|(1[3584]\d{9}))$/gi;
+                    result = exp.test(val);
                     break;
                 case _ruleType.email:
-                    exp = /^\w{1,8}$/gi;
-                    return exp.test(val);
+                    exp = /^[a-z\d]+(\.[a-z\d]+)*@([\da-z](-[\da-z])?)+(\.{1,2}[a-z]+)+$/gi;
+                    result = exp.test(val);
+                    break;
+                case _ruleType.website:
+                    var pattern = "^((https|http|ftp|rtsp|mms)?://)"
+                                    + "?(([0-9a-z_!~*'().&=+$%-]+: )?[0-9a-z_!~*'().&=+$%-]+@)?" //ftp的user@  
+                                    + "(([0-9]{1,3}\.){3}[0-9]{1,3}" // IP形式的URL- 199.194.52.184  
+                                    + "|" // 允许IP和DOMAIN（域名） 
+                                    + "([0-9a-z_!~*'()-]+\.)*" // 域名- www.  
+                                    + "([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\." // 二级域名  
+                                    + "[a-z]{2,6})" // first level domain- .com or .museum  
+                                    + "(:[0-9]{1,4})?" // 端口- :80  
+                                    + "((/?)|" // a slash isn't required if there is no file name  
+                                    + "(/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+/?)$";
+                    exp = new RegExp(pattern);
+                    result = reg.test(val);
                     break;
                 case _ruleType.remote:
-                    var result = false;
-                    $.ajax({
-                        async: false,
-                        url: rule.arg.url,
-                        data: rule.arg.data,
-                        dataType: rule.arg.dataType,
-                        success: function (e) {
-                            alert(e.success);
-                            if (e.success) {
-                                result = true;
-                            }
-                        }
-                    });
-                    return result;
+                    rule.arg.data[rule.arg.para] = val;
+                    rule.arg.async = false;
+                    if (rule.arg.fn != null) {
+                        rule.arg.success = function (e) {
+                            result = rule.arg.fn.call(this, e);
+                        };
+                    }
+                    box.show("", _mesType.loading);
+                    $.ajax(rule.arg);
+                    box.hide();
                     break;
-                default:
-                    return false;
             }
+            if (rule.fn != null) {
+                result = rule.fn.call(this);
+            }
+            //alert(result);
+            return result;
         }
 
         function doValidateItem(item) {
+            /// <summary>验证一条验证元素</summary>
+            /// <param name="item" type="Object">验证数据</param>
             var result = false;
             for (var i = 0; i < item.rules.length; i++) {
-                result = vailRule(item.rules[i], item.el);
+                result = validRule(item.rules[i], item.el, item.box);
                 //alert(item.el.attr("id") + ".rule." + (i + 1) + ".result = " + result);
                 if (!result) {
                     break;
@@ -281,43 +314,46 @@
             /// <param name="list" type="Array">验证数据</param>
             for (var i = 0; i < list.length; i++) {
                 var item = list[i];
-                var box = new MessageBox(item.el);
-                item.box = box;
+                item.box = new MessageBox(item.el);
+                item.result = false;
                 if (isInput(item.el)) {
-                    //item.el.bind("focus", i, function (e) {
-                    //    if (!isStringNull(list[e.data].tip)) {
-                    //        list[e.data].box.show(list[e.data].tip, _mesType.tip);
-                    //    }
-                    //});
-                    //item.el.bind("blur", i, function (e) {
-                    //    doValidateItem(list[e.data]);
-                    //});
+                    item.el.bind("focus", i, function (e) {
+                        if (!isStringNull(list[e.data].tip)) {
+                            list[e.data].box.show(list[e.data].tip, _mesType.tip);
+                        }
+                    });
+                    item.el.bind("blur", i, function (e) {
+                        doValidateItem(list[e.data]);
+                    });
                 }
             }
         }
         init(list);
 
-        that.doValid = function () {
-            /// <signature>
-            /// <param name="el" type="Object">$对象</param>
-            /// <returns type="validator" />
-            /// </signature>
-            /// <signature>
-            /// <returns type="validator" />
-            /// </signature>
-            if (arguments.length == 0) {
-                for (var i = 0; i < list.length; i++) {
+        that.doValid = function (force) {
+            /// <summary>开始验证</summary>
+            /// <param name="force" type="Bool">是否全部验证,false只验证已经验证失败的元素</param>
+            /// <returns type="Validator" />
+            for (var i = 0; i < list.length; i++) {
+                if (force || (force == false &&
+                    (list[i].result == undefined || (list[i].result != undefined && list[i].result == false)))) {
                     doValidateItem(list[i]);
-                }
-            } else {
-                for (var i = 0; i < list.length; i++) {
-                    if (list[i].el.attr("id") == arguments[0].attr("id")) {
-                        doValidateItem(list[i]);
-                        break;
-                    }
                 }
             }
             return that;
+        };
+
+        that.getValidResult = function () {
+            /// <summary>获取验证结果</summary>
+            /// <returns type="Bool" />
+            var result = false;
+            for (var i = 0; i < list.length; i++) {
+                result = list[i].result;
+                if (!result) {
+                    break;
+                }
+            }
+            return result;
         };
     }
 
