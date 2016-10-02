@@ -34,6 +34,9 @@
         /// <field name="range" type="Number">字符数范围</field>
         range: 8,
 
+        /// <field name="equal" type="Number">相等</field>
+        equal: 9,
+
         /// <field name="custom" type="Number">自定义</field>
         custom: 100
     };
@@ -230,6 +233,20 @@
             return false;
         }
 
+        function getItem(el) {
+            /// <summary>获取指定验证元素关联的验证数据</summary>
+            /// <param name="el" type="Number">验证元素</param>
+            /// <returns type="Object" />
+            var obj = null;
+            for (var i = 0; i < list.length; i++) {
+                if (list[i].el.is(el)) {
+                    obj = list[i];
+                    break;
+                }
+            }
+            return obj;
+        }
+
         function validRule(rule, el, box) {
             /// <summary>验证规则</summary>
             /// <param name="rule" type="Number">规则数据</param>
@@ -288,6 +305,9 @@
                     exp = new RegExp("^.{" + rule.arg + "}$", "gi");
                     result = (exp).test(val);
                     break;
+                case _ruleType.equal:
+                    result = val == rule.arg.val().trim();
+                    break;
             }
             if (rule.fn != null) {
                 result = rule.fn.call(this);
@@ -300,15 +320,25 @@
             /// <summary>验证一条验证元素</summary>
             /// <param name="item" type="Object">验证数据</param>
             var result = false;
+            var equalIndex = -1;//是否包含相等规则
             for (var i = 0; i < item.rules.length; i++) {
                 result = validRule(item.rules[i], item.el, item.box);
                 //alert(item.el.attr("id") + ".rule." + (i + 1) + ".result = " + result);
+                if (item.rules[i].type == _ruleType.equal) {
+                    equalIndex = i;
+                }
                 if (!result) {
                     break;
                 }
             }
             //alert(item.el.attr("id") + ".result = " + result);
             item.result = result;
+            if (item.result && equalIndex > -1) {
+                var obj = getItem(item.rules[equalIndex].arg);//获取关联数据
+                //alert(obj);
+                obj.result = true;
+                obj.box.show("", _mesType.ok);
+            }
             if (result) {
                 item.box.show("", _mesType.ok);
             } else {

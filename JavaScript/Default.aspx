@@ -15,7 +15,7 @@
                 {
                     el: $("#txt_mobile"),
                     tip: "提示信息1",
-                    defRuleError: "必须填写!",
+                    defRuleError: "必须填写电话!",
                     rules: [{
                         type: mqd.validate.type.phone,
                         error: "电话格式不正确!"
@@ -24,14 +24,16 @@
                 {
                     el: $("#txt_phone"),
                     tip: "提示信息2",
+                    defRuleError: "必须填写手机!",
                     rules: [{
-                        type: mqd.validate.type.required,
+                        type: mqd.validate.type.phone,
                         error: "手机格式不正确!"
                     }]
                 },
                 {
                     el: $("#txt_website"),
                     tip: "提示信息3",
+                    defRuleError: "必须填写网址!",
                     rules: [{
                         type: mqd.validate.type.email,
                         error: "网址格式不正确！"
@@ -40,6 +42,7 @@
                 {
                     el: $("#txt_email"),
                     tip: "提示信息4",
+                    defRuleError: "必须填写邮箱!",
                     rules: [{
                         type: mqd.validate.type.email,
                         error: "邮箱格式不正确!"
@@ -55,11 +58,32 @@
                 },
                 {
                     el: $("#txt_range"),
+                    defRuleError: "必须填写!",
                     tip: "提示信息6",
                     rules: [{
                         type: mqd.validate.type.range,
                         error: "字符范围在3到10之间",
                         arg: "3,10"
+                    }]
+                },
+                {
+                    el: $("#txt_equal1"),
+                    defRuleError: "必须填写!",
+                    tip: "提示信息7",
+                    rules: [{
+                        type: mqd.validate.type.equal,
+                        error: "两次输入不一致!",
+                        arg: $("#txt_equal2")
+                    }]
+                },
+                {
+                    el: $("#txt_equal2"),
+                    defRuleError: "必须填写!",
+                    tip: "提示信息8",
+                    rules: [{
+                        type: mqd.validate.type.equal,
+                        error: "两次输入不一致!",
+                        arg: $("#txt_equal1")
                     }]
                 }
             ]);
@@ -104,6 +128,16 @@
                 <td align="right">字符范围:</td>
                 <td>
                     <input type="text" id="txt_range" /></td>
+            </tr>
+            <tr>
+                <td align="right">相等1:</td>
+                <td>
+                    <input type="text" id="txt_equal1" /></td>
+            </tr>
+            <tr>
+                <td align="right">相等2:</td>
+                <td>
+                    <input type="text" id="txt_equal2" /></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
