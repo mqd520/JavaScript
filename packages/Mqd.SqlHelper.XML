@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Mqd.SqlHelper</name>
+    </assembly>
+    <members>
+        <member name="T:Mqd.SqlHelper.Db">
+            <summary>
+            数据库访问类
+            </summary>
+        </member>
+        <member name="F:Mqd.SqlHelper.Db._css">
+            <summary>
+            数据库连接字符串配置对象
+            </summary>
+        </member>
+        <member name="F:Mqd.SqlHelper.Db._factory">
+            <summary>
+            db提供程序对象工厂
+            </summary>
+        </member>
+        <member name="M:Mqd.SqlHelper.Db.#ctor(System.Configuration.ConnectionStringSettings)">
+            <summary>
+            使用指定数据库连接对象创建数据库连接
+            </summary>
+            <param name="css">数据库连接对象</param>
+        </member>
+        <member name="M:Mqd.SqlHelper.Db.#ctor(System.String)">
+            <summary>
+            使用指定数据库连接字符串名创建数据库连接
+            </summary>
+            <param name="connStringName">指定数据库连接字符串名</param>
+        </member>
+        <member name="M:Mqd.SqlHelper.Db.#ctor">
+            <summary>
+            使用默认连接字符串名SqlHelperConnName创建数据库连接
+            </summary>
+        </member>
+        <member name="M:Mqd.SqlHelper.Db.CreateConnection">
+            <summary>
+            创建数据库连接对象
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Mqd.SqlHelper.Db.Dispose(System.Data.Common.DbCommand)">
+            <summary>
+            释放相关资源
+            </summary>
+            <param name="cmd">DbCommand</param>
+        </member>
+        <member name="M:Mqd.SqlHelper.Db.CreateCommand(System.String,System.Data.Common.DbConnection,System.Data.CommandType,System.Data.Common.DbParameter[],System.Data.Common.DbTransaction)">
+            <summary>
+            创建DbCommand
+            </summary>
+            <param name="cmdText"></param>
+            <param name="conn"></param>
+            <param name="type"></param>
+            <param name="paras"></param>
+            <param name="tran"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mqd.SqlHelper.Db.CreateParameter">
+            <summary>
+            创建DbParameter
+            </summary>
+            <returns>DbParameter</returns>
+        </member>
+        <member name="M:Mqd.SqlHelper.Db.CreateParameter(System.String,System.Object,System.Int32,System.Data.DbType,System.Data.ParameterDirection)">
+            <summary>
+            创建DbParameter
+            </summary>
+            <param name="paraName">参数名</param>
+            <param name="value">参数值</param>
+            <param name="size">参数大小</param>
+            <param name="type">参数类型</param>
+            <param name="direction">参数方向</param>
+            <returns>DbParameter</returns>
+        </member>
+        <member name="M:Mqd.SqlHelper.Db.GetDataSet(System.String,System.Data.Common.DbParameter[])">
+            <summary>
+            获取DataSet
+            </summary>
+            <param name="sql">sql语句</param>
+            <param name="paras">参数集合</param>
+            <returns>返回查询到的数据</returns>
+        </member>
+        <member name="M:Mqd.SqlHelper.Db.GetTable(System.String,System.Data.Common.DbParameter[])">
+            <summary>
+            获取DataTable
+            </summary>
+            <param name="sql">sql语句</param>
+            <param name="paras">参数集合</param>
+            <returns>DataTable</returns>
+        </member>
+        <member name="M:Mqd.SqlHelper.Db.ExecuteStoreProcedure(System.String,System.Data.Common.DbParameter[])">
+            <summary>
+            执行存储过程
+            </summary>
+            <param name="procedureName">存储过程名</param>
+            <param name="paras">参数集合</param>
+            <returns>返回查询到的数据</returns>
+        </member>
+        <member name="M:Mqd.SqlHelper.Db.ExecuteNonQuery(System.String,System.Data.Common.DbParameter[])">
+            <summary>
+            执行无查询
+            </summary>
+            <param name="sql">sql语句</param>
+            <param name="paras">参数集合</param>
+            <returns>返回影响记录数</returns>
+        </member>
+        <member name="M:Mqd.SqlHelper.Db.Insert``1(``0,System.Collections.Generic.List{System.Reflection.PropertyInfo})">
+            <summary>
+            插入数据
+            </summary>
+            <typeparam name="T">实体类型</typeparam>
+            <param name="entity">实体数据</param>
+            <param name="where">需要插入数据的字段</param>
+            <returns>返回影响记录数</returns>
+        </member>
+        <member name="T:Mqd.SqlHelper.Tool">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Mqd.SqlHelper.Tool.ToList``1(System.Data.DataTable)">
+            <summary>
+            将DataTable转换成相应的实体类型
+            </summary>
+            <typeparam name="T">实体类型</typeparam>
+            <param name="dt">要转换的DataTable</param>
+            <returns>转换后的实体数据集合</returns>
+        </member>
+    </members>
+</doc>
