@@ -145,6 +145,26 @@
                         error: "日期时间输入不正确!"
                     }]
                 },
+                {
+                    el: $("#txt_min"),
+                    defRuleError: "必须填写最小数!",
+                    tip: "请填写最小数",
+                    rules: [{
+                        type: mqd.validate.type.min,
+                        error: "最小数输入不正确!",
+                        arg: 3
+                    }]
+                },
+                {
+                    el: $("#txt_max"),
+                    defRuleError: "必须填写最大数!",
+                    tip: "请填写最大数",
+                    rules: [{
+                        type: mqd.validate.type.max,
+                        error: "最大数输入不正确!",
+                        arg: 10
+                    }]
+                }
             ]);
             $("#btn1").click(function () {
                 validator.doValid(false);
@@ -244,6 +264,16 @@
                 <td align="right">日期时间:</td>
                 <td>
                     <input type="text" id="txt_datetime" /></td>
+            </tr>
+            <tr>
+                <td align="right">最小数:</td>
+                <td>
+                    <input type="text" id="txt_min" /></td>
+            </tr>
+            <tr>
+                <td align="right">最大数:</td>
+                <td>
+                    <input type="text" id="txt_max" /></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>

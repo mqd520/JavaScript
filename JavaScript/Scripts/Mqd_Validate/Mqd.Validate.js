@@ -50,6 +50,12 @@
         /// <field name="datetime" type="Number">日期和时间</field>
         datetime: 13,
 
+        /// <field name="min" type="Number">字符串最小数</field>
+        min: 14,
+
+        /// <field name="max" type="Number">字符串最大数</field>
+        max: 15,
+
         /// <field name="custom" type="Number">自定义</field>
         custom: 100
     };
@@ -363,6 +369,14 @@
                     break;
                 case _ruleType.datetime:
                     exp = /^((((1[6-9]|[2-9]\d)\d{2})-(0?[13578]|1[02])-(0?[1-9]|[12]\d|3[01]))|(((1[6-9]|[2-9]\d)\d{2})-(0?[13456789]|1[012])-(0?[1-9]|[12]\d|30))|(((1[6-9]|[2-9]\d)\d{2})-0?2-(0?[1-9]|1\d|2[0-8]))|(((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))-0?2-29-))\s(0\d{1}|1\d{1}|2[0-3]):[0-5]\d{1}:([0-5]\d{1})$/gi;
+                    result = exp.test(val);
+                    break;
+                case _ruleType.min:
+                    exp = new RegExp("^.{" + rule.arg + ",}$", "gi");
+                    result = exp.test(val);
+                    break;
+                case _ruleType.max:
+                    exp = new RegExp("^.{1," + rule.arg + "}$", "gi");
                     result = exp.test(val);
                     break;
             }

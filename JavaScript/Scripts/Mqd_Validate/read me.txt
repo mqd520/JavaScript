@@ -39,6 +39,12 @@ new RegExp("pattern","flags")
 
 当rules不包含mqd.validate.type.required时,元素可为空,但元素一旦有值则必须参加验证
 
+当type取值mqd.validate.type.min时,arg值如下：
+1	1为字符串最小数目
+
+当type取值mqd.validate.type.max时,arg值如下：
+10	10为字符串最大数目
+
 
 
 
