@@ -37,6 +37,8 @@ new RegExp("pattern","flags")
 当type取值mqd.validate.type.select时,arg值如下：
 "0"	0为错误选项值
 
+当rules不包含mqd.validate.type.required时,元素可为空,但元素一旦有值则必须参加验证
+
 
 
 

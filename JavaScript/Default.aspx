@@ -125,6 +125,10 @@
                     alert("验证通过");
                 }
             });
+            $("#form1").bind("submit", function () {
+                validator.doValid(false);
+                return validator.getValidResult();
+            });
         });
     </script>
 </head>

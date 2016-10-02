@@ -6,6 +6,7 @@
     }
 
     /// <field name="validate" type="Object">validate命名空间</field>
+    // validate命名空间
     mqd.validate = {};
 
     // 规则类型
