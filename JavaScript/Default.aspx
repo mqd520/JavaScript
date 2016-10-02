@@ -15,52 +15,51 @@
                 {
                     el: $("#txt_mobile"),
                     tip: "提示信息1",
-                    rules: [
-                        {
-                            type: mqd.validate.type.phone,
-                            error: "电话格式不正确!"
-                        }
-                    ]
+                    rules: [{
+                        type: mqd.validate.type.phone,
+                        error: "电话格式不正确!"
+                    }]
                 },
                 {
                     el: $("#txt_phone"),
                     tip: "提示信息2",
-                    rules: [
-                        {
-                            type: mqd.validate.type.required,
-                            error: "手机格式不正确!"
-                        }
-                    ]
+                    rules: [{
+                        type: mqd.validate.type.required,
+                        error: "手机格式不正确!"
+                    }]
                 },
                 {
                     el: $("#txt_website"),
                     tip: "提示信息3",
-                    rules: [
-                        {
-                            type: mqd.validate.type.email,
-                            error: "网址格式不正确！"
-                        }
-                    ]
+                    rules: [{
+                        type: mqd.validate.type.email,
+                        error: "网址格式不正确！"
+                    }]
                 },
                 {
                     el: $("#txt_email"),
                     tip: "提示信息4",
-                    rules: [
-                        {
-                            type: mqd.validate.type.email,
-                            error: "邮箱格式不正确!"
-                        }
-                    ]
+                    rules: [{
+                        type: mqd.validate.type.email,
+                        error: "邮箱格式不正确!"
+                    }]
                 },
                 {
                     el: $("#txt_required"),
                     tip: "提示信息5",
-                    rules: [
-                        {
-                            type: mqd.validate.type.email,
-                            error: "必须输入!"
-                        }
-                    ]
+                    rules: [{
+                        type: mqd.validate.type.email,
+                        error: "必须输入!"
+                    }]
+                },
+                {
+                    el: $("#txt_range"),
+                    tip: "提示信息6",
+                    rules: [{
+                        type: mqd.validate.type.range,
+                        error: "字符范围在3到10之间",
+                        arg: "3,10"
+                    }]
                 }
             ]);
             $("#btn1").click(function () {
@@ -99,6 +98,11 @@
                 <td align="right">必选:</td>
                 <td>
                     <input type="text" id="txt_required" /></td>
+            </tr>
+            <tr>
+                <td align="right">字符范围:</td>
+                <td>
+                    <input type="text" id="txt_range" /></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>

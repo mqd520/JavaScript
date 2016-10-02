@@ -31,6 +31,9 @@
         /// <field name="postcode" type="Number">邮编</field>
         postcode: 7,
 
+        /// <field name="range" type="Number">字符数范围</field>
+        range: 8,
+
         /// <field name="custom" type="Number">自定义</field>
         custom: 100
     };
@@ -280,6 +283,10 @@
                     box.show("", _mesType.loading);
                     $.ajax(rule.arg);
                     box.hide();
+                    break;
+                case _ruleType.range:
+                    exp = new RegExp("^.{" + rule.arg + "}$", "gi");
+                    result = (exp).test(val);
                     break;
             }
             if (rule.fn != null) {
