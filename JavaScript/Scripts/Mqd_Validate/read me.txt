@@ -34,6 +34,9 @@ $("#id")
 当type取值mqd.validate.type.custom时,arg值如下：
 new RegExp("pattern","flags")
 
+当type取值mqd.validate.type.select时,arg值如下：
+"0"	0为错误选项值
+
 
 
 

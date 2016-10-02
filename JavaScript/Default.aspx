@@ -95,6 +95,14 @@
                         error: "自定义规则输入不正确!",
                         arg: new RegExp("^custom$", "gi")
                     }]
+                },
+                {
+                    el: $("#select1"),
+                    rules: [{
+                        type: mqd.validate.type.select,
+                        error: "请选择下拉框!",
+                        arg: "0"
+                    }]
                 }
             ]);
             $("#btn1").click(function () {
@@ -153,6 +161,15 @@
                 <td align="right">自定义:</td>
                 <td>
                     <input type="text" id="txt_custom" /></td>
+            </tr>
+            <tr>
+                <td align="right">下拉框:</td>
+                <td>
+                    <select id="select1">
+                        <option value="0">请选择</option>
+                        <option value="1">选项一</option>
+                        <option value="2">选项二</option>
+                    </select></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>

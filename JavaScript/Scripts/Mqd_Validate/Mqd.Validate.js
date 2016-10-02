@@ -37,6 +37,9 @@
         /// <field name="equal" type="Number">相等</field>
         equal: 9,
 
+        /// <field name="select" type="Number">下拉框</field>
+        select: 10,
+
         /// <field name="custom" type="Number">自定义</field>
         custom: 100
     };
@@ -227,7 +230,17 @@
             /// <summary>判断是否是文本框</summary>
             /// <param name="el" type="Object">需要验证的$对象</param>
             /// <returns type="Bool" />
-            if (el.attr("type").toLowerCase() == "text") {
+            if (el.prop("tagName").toLowerCase() == "input" && el.prop("type").toLowerCase() == "text") {
+                return true;
+            }
+            return false;
+        }
+
+        function isSelect(el) {
+            /// <summary>判断是否是下拉框</summary>
+            /// <param name="el" type="Object">需要验证的$对象</param>
+            /// <returns type="Bool" />
+            if (el.prop("tagName").toLowerCase() == "select") {
                 return true;
             }
             return false;
@@ -322,6 +335,9 @@
                     exp = new RegExp(rule.arg.source, flags);
                     result = exp.test(val);
                     break;
+                case _ruleType.select:
+                    result = val != rule.arg;
+                    break;
             }
             if (rule.fn != null) {
                 result = rule.fn.call(this);
@@ -374,6 +390,10 @@
                         }
                     });
                     item.el.bind("blur", i, function (e) {
+                        doValidateItem(list[e.data]);
+                    });
+                } else if (isSelect(item.el)) {
+                    item.el.bind("change", i, function (e) {
                         doValidateItem(list[e.data]);
                     });
                 }
