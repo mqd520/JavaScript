@@ -15,6 +15,7 @@
                 {
                     el: $("#txt_mobile"),
                     tip: "提示信息1",
+                    defRuleError: "必须填写!",
                     rules: [{
                         type: mqd.validate.type.phone,
                         error: "电话格式不正确!"

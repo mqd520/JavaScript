@@ -372,7 +372,16 @@
             /// <summary>创建一个验证器对象</summary>
             /// <param name="list" type="list">验证对象数据集合</param>
             /// <returns type="Validator" />
-            return new Validator($.extend([], list));
+            var li = $.extend([], list);
+            for (var i = 0; i < li.length; i++) {
+                if (li[i].defRuleError != undefined) {
+                    li[i].rules.splice(0, 0, {
+                        type: _ruleType.required,
+                        error: li[i].defRuleError
+                    });
+                }
+            }
+            return new Validator(li);
         }
     };
 
