@@ -73,6 +73,26 @@
         return false;
     }
 
+    function isInput(el) {
+        /// <summary>判断是否是文本框</summary>
+        /// <param name="el" type="Object">需要验证的$对象</param>
+        /// <returns type="Bool" />
+        if (el.prop("tagName").toLowerCase() == "input" && el.prop("type").toLowerCase() == "text") {
+            return true;
+        }
+        return false;
+    }
+
+    function isSelect(el) {
+        /// <summary>判断是否是下拉框</summary>
+        /// <param name="el" type="Object">需要验证的$对象</param>
+        /// <returns type="Bool" />
+        if (el.prop("tagName").toLowerCase() == "select") {
+            return true;
+        }
+        return false;
+    }
+
     function MessageBox(el) {
         /// <summary>消息框对象</summary>
         /// <param name="el" type="Object">需要验证的$对象</param>
@@ -226,26 +246,6 @@
 
         var that = this;
 
-        function isInput(el) {
-            /// <summary>判断是否是文本框</summary>
-            /// <param name="el" type="Object">需要验证的$对象</param>
-            /// <returns type="Bool" />
-            if (el.prop("tagName").toLowerCase() == "input" && el.prop("type").toLowerCase() == "text") {
-                return true;
-            }
-            return false;
-        }
-
-        function isSelect(el) {
-            /// <summary>判断是否是下拉框</summary>
-            /// <param name="el" type="Object">需要验证的$对象</param>
-            /// <returns type="Bool" />
-            if (el.prop("tagName").toLowerCase() == "select") {
-                return true;
-            }
-            return false;
-        }
-
         function getItem(el) {
             /// <summary>获取指定验证元素关联的验证数据</summary>
             /// <param name="el" type="Number">验证元素</param>
@@ -265,6 +265,7 @@
             /// <param name="rule" type="Number">规则数据</param>
             /// <param name="el" type="Number">验证元素对象</param>
             /// <param name="box" type="Number">消息框对象</param>
+            /// <returns type="Bool" />
             var result = false;
             var val = el.val().trim();
             var exp;
@@ -276,11 +277,11 @@
                         result = false;
                     }
                     break;
-                case _ruleType.mobile:
+                case _ruleType.phone:
                     exp = /^1[3|4|5|8][0-9]\d{8}$/gi;
                     result = exp.test(val);
                     break;
-                case _ruleType.phone:
+                case _ruleType.mobile:
                     exp = /^((0\d{2,3}-\d{7,8})|(1[3584]\d{9}))$/gi;
                     result = exp.test(val);
                     break;
@@ -300,7 +301,7 @@
                                     + "((/?)|" // a slash isn't required if there is no file name  
                                     + "(/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+/?)$";
                     exp = new RegExp(pattern);
-                    result = reg.test(val);
+                    result = exp.test(val);
                     break;
                 case _ruleType.remote:
                     rule.arg.data[rule.arg.para] = val;
@@ -350,9 +351,30 @@
             return result;
         }
 
+        function isExistRuleType(rules, type) {
+            /// <summary>是否存在指定规则类型</summary>
+            /// <param name="item" type="Object">验证数据</param>
+            /// <returns type="Bool" />
+            var exist = false;
+            for (var i = 0; i < rules.length; i++) {
+                if (rules[i].type == type) {
+                    exist = true;
+                    break;
+                }
+            }
+            return exist;
+        }
+
         function doValidateItem(item) {
             /// <summary>验证一条验证元素</summary>
             /// <param name="item" type="Object">验证数据</param>
+            var val = item.el.val().trim();
+            var existType = isExistRuleType(item.rules, _ruleType.required);
+            if (!existType && val == "") {
+                item.result = true;
+                item.box.hide();
+                return;//如果不包括必选规则且元素值为空就跳过验证
+            }
             var result = false;
             var equalIndex = -1;//是否包含相等规则
             for (var i = 0; i < item.rules.length; i++) {
@@ -442,7 +464,10 @@
             /// <returns type="Validator" />
             var li = $.extend([], list);
             for (var i = 0; i < li.length; i++) {
-                if (li[i].defRuleError != undefined) {
+                if (li[i].rules == undefined) {
+                    li[i].rules = [];
+                }
+                if (isInput(list[i].el) && li[i].defRuleError != undefined) {
                     li[i].rules.splice(0, 0, {
                         type: _ruleType.required,
                         error: li[i].defRuleError

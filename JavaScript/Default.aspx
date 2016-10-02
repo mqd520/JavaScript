@@ -17,7 +17,7 @@
                     tip: "提示信息1",
                     defRuleError: "必须填写电话!",
                     rules: [{
-                        type: mqd.validate.type.phone,
+                        type: mqd.validate.type.mobile,
                         error: "电话格式不正确!"
                     }]
                 },
@@ -35,7 +35,7 @@
                     tip: "提示信息3",
                     defRuleError: "必须填写网址!",
                     rules: [{
-                        type: mqd.validate.type.email,
+                        type: mqd.validate.type.website,
                         error: "网址格式不正确！"
                     }]
                 },
@@ -51,10 +51,7 @@
                 {
                     el: $("#txt_required"),
                     tip: "提示信息5",
-                    rules: [{
-                        type: mqd.validate.type.email,
-                        error: "必须输入!"
-                    }]
+                    defRuleError: "必须填写!"
                 },
                 {
                     el: $("#txt_range"),
@@ -108,6 +105,14 @@
                     el: $("#txt_postcode"),
                     defRuleError: "必须填写邮编!",
                     tip: "邮编格式",
+                    rules: [{
+                        type: mqd.validate.type.postcode,
+                        error: "邮编格式不正确!"
+                    }]
+                },
+                {
+                    el: $("#txt_empty"),
+                    tip: "邮编,可不填",
                     rules: [{
                         type: mqd.validate.type.postcode,
                         error: "邮编格式不正确!"
@@ -184,6 +189,11 @@
                 <td align="right">邮编:</td>
                 <td>
                     <input type="text" id="txt_postcode" /></td>
+            </tr>
+            <tr>
+                <td align="right">可为空:</td>
+                <td>
+                    <input type="text" id="txt_empty" /></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>

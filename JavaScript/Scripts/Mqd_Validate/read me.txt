@@ -3,8 +3,8 @@
 	{
 		el:				Object		需要验证的元素	必选	jQuery对象
 		tip:			String		用户输入时显示的提示信息	可选
-		defRuleError:	String		默认规则(必选规则)的错误信息,自动添加必选规则
-		rules:			Array		验证规则集合	必选
+		defRuleError:	String		默认规则(必选规则)的错误信息,自动添加必选规则	可选
+		rules:			Array		验证规则集合	可选
 		[
 			{
 				type:	Number		验证规则类型	必选	mqd.validate.type枚举值
@@ -45,7 +45,7 @@ Validator类参数数据结构如下：
 	{
 		el:				Object		需要验证的元素	必选	jQuery对象
 		tip:			String		用户输入时显示的提示信息	可选
-		rules:			Array		验证规则集合	必选
+		rules:			Array		验证规则集合	可选
 		box:			Object		MessageBox对象,用于管理显示信息窗口
 		result:			Bool		表示验证结果
 		[
