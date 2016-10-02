@@ -41,6 +41,15 @@
         /// <field name="select" type="Number">下拉框</field>
         select: 10,
 
+        /// <field name="date" type="Number">日期</field>
+        date: 11,
+
+        /// <field name="time" type="Number">时间</field>
+        time: 12,
+
+        /// <field name="datetime" type="Number">日期和时间</field>
+        datetime: 13,
+
         /// <field name="custom" type="Number">自定义</field>
         custom: 100
     };
@@ -342,6 +351,18 @@
                     break;
                 case _ruleType.postcode:
                     exp = /^[0-9]{5,6}$/gi;
+                    result = exp.test(val);
+                    break;
+                case _ruleType.date:
+                    exp = /^((((1[6-9]|[2-9]\d)\d{2})-(0?[13578]|1[02])-(0?[1-9]|[12]\d|3[01]))|(((1[6-9]|[2-9]\d)\d{2})-(0?[13456789]|1[012])-(0?[1-9]|[12]\d|30))|(((1[6-9]|[2-9]\d)\d{2})-0?2-(0?[1-9]|1\d|2[0-8]))|(((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))-0?2-29-))$/gi;
+                    result = exp.test(val);
+                    break;
+                case _ruleType.time:
+                    exp = /^(0\d{1}|1\d{1}|2[0-3]):[0-5]\d{1}:([0-5]\d{1})$/gi;
+                    result = exp.test(val);
+                    break;
+                case _ruleType.datetime:
+                    exp = /^((((1[6-9]|[2-9]\d)\d{2})-(0?[13578]|1[02])-(0?[1-9]|[12]\d|3[01]))|(((1[6-9]|[2-9]\d)\d{2})-(0?[13456789]|1[012])-(0?[1-9]|[12]\d|30))|(((1[6-9]|[2-9]\d)\d{2})-0?2-(0?[1-9]|1\d|2[0-8]))|(((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))-0?2-29-))\s(0\d{1}|1\d{1}|2[0-3]):[0-5]\d{1}:([0-5]\d{1})$/gi;
                     result = exp.test(val);
                     break;
             }

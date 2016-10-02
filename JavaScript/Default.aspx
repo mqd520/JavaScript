@@ -14,7 +14,7 @@
             var validator = mqd.validate.create([
                 {
                     el: $("#txt_mobile"),
-                    tip: "提示信息1",
+                    tip: "请填写电话",
                     defRuleError: "必须填写电话!",
                     rules: [{
                         type: mqd.validate.type.mobile,
@@ -23,7 +23,7 @@
                 },
                 {
                     el: $("#txt_phone"),
-                    tip: "提示信息2",
+                    tip: "请填写手机",
                     defRuleError: "必须填写手机!",
                     rules: [{
                         type: mqd.validate.type.phone,
@@ -32,7 +32,7 @@
                 },
                 {
                     el: $("#txt_website"),
-                    tip: "提示信息3",
+                    tip: "请填写网址",
                     defRuleError: "必须填写网址!",
                     rules: [{
                         type: mqd.validate.type.website,
@@ -41,7 +41,7 @@
                 },
                 {
                     el: $("#txt_email"),
-                    tip: "提示信息4",
+                    tip: "请填写邮箱",
                     defRuleError: "必须填写邮箱!",
                     rules: [{
                         type: mqd.validate.type.email,
@@ -50,7 +50,7 @@
                 },
                 {
                     el: $("#txt_required"),
-                    tip: "提示信息5",
+                    tip: "请填写必须信息",
                     defRuleError: "必须填写!"
                 },
                 {
@@ -117,7 +117,34 @@
                         type: mqd.validate.type.postcode,
                         error: "邮编格式不正确!"
                     }]
-                }
+                },
+                {
+                    el: $("#txt_date"),
+                    defRuleError: "必须填写日期!",
+                    tip: "请填写日期",
+                    rules: [{
+                        type: mqd.validate.type.date,
+                        error: "日期输入不正确!"
+                    }]
+                },
+                {
+                    el: $("#txt_time"),
+                    defRuleError: "必须填写时间!",
+                    tip: "请填写时间",
+                    rules: [{
+                        type: mqd.validate.type.time,
+                        error: "时间输入不正确!"
+                    }]
+                },
+                {
+                    el: $("#txt_datetime"),
+                    defRuleError: "必须填写日期时间!",
+                    tip: "请填写日期时间",
+                    rules: [{
+                        type: mqd.validate.type.datetime,
+                        error: "日期时间输入不正确!"
+                    }]
+                },
             ]);
             $("#btn1").click(function () {
                 validator.doValid(false);
@@ -198,6 +225,21 @@
                 <td align="right">可为空:</td>
                 <td>
                     <input type="text" id="txt_empty" /></td>
+            </tr>
+            <tr>
+                <td align="right">日期:</td>
+                <td>
+                    <input type="text" id="txt_date" /></td>
+            </tr>
+            <tr>
+                <td align="right">时间:</td>
+                <td>
+                    <input type="text" id="txt_time" /></td>
+            </tr>
+            <tr>
+                <td align="right">日期时间:</td>
+                <td>
+                    <input type="text" id="txt_datetime" /></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
