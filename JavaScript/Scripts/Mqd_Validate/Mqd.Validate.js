@@ -163,14 +163,15 @@
         function setMesBoxStyle() {
             /// <summary>设置消息框样式</summary>
             that.box.css({
-                margin: "0px",
-                padding: "0px",
-                position: "absolute",
-                zIndex: "9901",
-                display: "none",
-                border: "0px solid red",
-                width: "300px",
-                height: "22px"
+                "margin": "0px",
+                "padding": "0px",
+                "position": "absolute",
+                "zIndex": "9901",
+                "display": "none",
+                "border": "0px solid red",
+                //"width": "300px",
+                //"background-color": "red",
+                "height": "22px"
             });
             that.box.find("div.Mqd_Validate_InfoIcon").eq(0).css({
                 "margin": "0px",
@@ -189,13 +190,14 @@
                 "display": "block",
                 "float": "left",
                 "border": "0px solid red",
-                "width": "265px",
+                //"width": "265px",
                 "height": "22px",
                 "line-height": "22px",
                 "font-size": "12px",
                 "over-flow": "hidden",
                 "padding-left": "2px",
-                "font-family": "微软雅黑"
+                "font-family": "微软雅黑",
+                //"background-color": "green"
             });
         }
 
@@ -325,6 +327,7 @@
                     if (rule.arg.fn != null) {
                         rule.arg.success = function (e) {
                             result = rule.arg.fn.call(this, e);
+                            //alert(result);
                         };
                     }
                     box.show("", _mesType.loading);

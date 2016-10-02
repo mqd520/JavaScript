@@ -164,6 +164,24 @@
                         error: "最大数输入不正确!",
                         arg: 10
                     }]
+                },
+                {
+                    el: $("#txt_remote"),
+                    defRuleError: "必须填写用户名!",
+                    tip: "请填写用户名",
+                    rules: [{
+                        type: mqd.validate.type.remote,
+                        error: "用户名已存在!",
+                        arg: {
+                            url: "Handler1.ashx",
+                            data: { action: "IsExistUsername" },
+                            dataType: "json",
+                            para: "username",
+                            fn: function (e) {
+                                return !e.exist;
+                            }
+                        }
+                    }]
                 }
             ]);
             $("#btn1").click(function () {
@@ -274,6 +292,11 @@
                 <td align="right">最大数:</td>
                 <td>
                     <input type="text" id="txt_max" /></td>
+            </tr>
+            <tr>
+                <td align="right">远程:</td>
+                <td>
+                    <input type="text" id="txt_remote" /></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
