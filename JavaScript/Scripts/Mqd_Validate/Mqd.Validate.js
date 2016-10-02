@@ -258,7 +258,7 @@
 
         function getItem(el) {
             /// <summary>获取指定验证元素关联的验证数据</summary>
-            /// <param name="el" type="Number">验证元素</param>
+            /// <param name="el" type="Object">验证元素</param>
             /// <returns type="Object" />
             var obj = null;
             for (var i = 0; i < list.length; i++) {
@@ -473,6 +473,22 @@
                 }
             }
             return result;
+        };
+
+        that.setValidResult = function (el, result, error) {
+            /// <summary>设置验证结果</summary>
+            /// <param name="el" type="Object">验证元素</param>
+            /// <param name="result" type="Bool">是否验证通过</param>
+            /// <param name="error" type="String">错误信息</param>
+            /// <returns type="Validator" />
+            var item = getItem(el);
+            item.result = result;
+            if (result) {
+                item.box.show("", _mesType.ok);
+            } else {
+                item.box.show(error, _mesType.error);
+            }
+            return that;
         };
     }
 

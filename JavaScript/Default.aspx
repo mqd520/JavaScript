@@ -156,6 +156,10 @@
                 validator.doValid(false);
                 return validator.getValidResult();
             });
+            $("#btn2").click(function () {
+                validator.setValidResult($("#txt_mobile"), false, "验证失败信息");
+                validator.setValidResult($("#txt_phone"), true);
+            });
         });
     </script>
 </head>
@@ -245,6 +249,7 @@
                 <td>&nbsp;</td>
                 <td>
                     <input type="button" id="btn1" value="提  交" />
+                    <input type="button" id="btn2" value="手动设置验证结果" />
                     <input type="submit" id="sub1" value="提  交" />
                 </td>
             </tr>
