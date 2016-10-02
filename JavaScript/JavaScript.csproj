@@ -64,6 +64,8 @@
     <Content Include="Global.asax" />
     <Content Include="Handler1.ashx" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Scripts\CNBlog\jQuery.validator.js" />
+    <Content Include="Scripts\CNBlog\validator.css" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>

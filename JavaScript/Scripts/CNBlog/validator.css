@@ -1,0 +1,31 @@
+﻿.validation-ready, .validation-focus, .validation-error, .validation-valid
+{
+	width: 300px;
+	padding-left: 25px;
+	height: 20px;
+	line-height: 20px;
+}
+
+.validation-ready
+{
+	background:  url(//common.cnblogs.com/images/validate/reg1.gif) no-repeat 0px -1px;
+	/*display:none;#E9FFEB*/
+}
+
+.validation-focus
+{
+	/*background: #E9F0FF url(http://common.cnblogs.com/images/validate/reg2.gif) no-repeat 0px -1px;*/
+	background:url(//common.cnblogs.com/images/validate/reg2.gif) no-repeat 0px -1px;
+}
+
+.validation-error
+{
+	/*background: #FFF2E9 url(http://common.cnblogs.com/images/validate/reg3.gif) no-repeat 0px -1px;*/
+	background: url(//common.cnblogs.com/images/validate/reg3.gif) no-repeat 0px -1px;
+}
+
+.validation-valid
+{
+	/*background: #E9FFEB url(http://common.cnblogs.com/images/validate/reg4.gif) no-repeat 0px -1px;*/
+	background:url(//common.cnblogs.com/images/validate/reg4.gif) no-repeat 0px -1px;
+}
