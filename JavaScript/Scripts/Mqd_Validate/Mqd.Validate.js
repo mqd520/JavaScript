@@ -114,6 +114,23 @@
         /// <param name="el" type="Object">需要验证的$对象</param>
 
         var that = this;
+        // 配置信息
+        var config = {
+            /// <field name="height" type="Number">消息框高度</field>
+            height: 22,
+            /// <field name="corner" type="Number">消息框圆角度</field>
+            radius: 5,
+            /// <field name="cornerWidth" type="Number">箭头背景宽度</field>
+            cornerWidth: 12,
+            /// <field name="cornerHeight" type="Number">箭头背景高度</field>
+            cornerHeight: 15,
+            /// <field name="iconWidth" type="Number">图标宽度</field>
+            iconWidth: 22,
+            /// <field name="iconHeight" type="Number">图标高度</field>
+            iconHeight: 22,
+            /// <field name="space" type="Number">元素和消息框之间间隔</field>
+            space: 2,
+        };
         // 消息框jQuery对象
         that.box = null;
 
@@ -166,61 +183,89 @@
                 "margin": "0px",
                 "padding": "0px",
                 "position": "absolute",
-                "zIndex": "9901",
+                "zIndex": "9998",
                 "display": "none",
+                "border-style": "none",
+                //"background-color": "red",
+                //"width": "200px",
+                "height": "" + config.height + "px"
+            });
+            that.box.find("div.Mqd_Validate_MessageBox_HTML").eq(0).css({
+                "margin": "0px",
+                "padding": "0px",
+                "display": "block",
                 "border": "1px solid #ffc74c",
-                //"width": "300px",
                 "background-color": "#fffcc6",
-                "height": "22px",
-                "-moz-border-radius": "5px",
-                "-webkit-border-radius": "5px",
-                "padding-right": "5px"
-            });
-            that.box.find("div.Mqd_Validate_InfoIcon").eq(0).css({
-                "margin": "0px",
-                "padding": "0px",
-                "display": "block",
-                "float": "left",
-                "border": "0px solid red",
-                "width": "22px",
-                "height": "22px",
                 "background-repeat": "no-repeat",
-                "background-position": "center"
-            });
-            that.box.find("div.Mqd_Validate_InfoHtml").eq(0).css({
-                "margin": "0px",
-                "padding": "0px",
-                "display": "block",
-                "float": "left",
-                "border": "0px solid red",
-                //"width": "265px",
-                "height": "22px",
-                "line-height": "22px",
+                "background-position": "0px center",
+                "height": "" + config.height + "px",
+                "-moz-border-radius": "" + config.radius + "px",
+                "-webkit-border-radius": "" + config.radius + "px",
+                "border-radius": "" + config.radius + "px",
+                "padding-right": "" + config.radius + "px",
+                "height": "" + (config.height - 2 * 1) + "px",
+                "line-height": "" + (config.height - 2 * 1) + "px",
                 "font-size": "12px",
                 "over-flow": "hidden",
-                "padding-left": "2px",
+                "padding-left": "" + (config.iconWidth) + "px",
+                "margin-left": "" + (config.space + config.cornerWidth) + "px",
                 "color": "gray",
                 "font-family": "微软雅黑",
-                //"background-color": "green"
             });
-            that.box.find("div.Mqd_Validate_InfoCorner").eq(0).css({
+            var url = getVirtualPath() + "corner1.gif";
+            that.box.find("div.Mqd_Validate_MessageBox_Corner").eq(0).css({
+                "margin": "0px",
+                "padding": "0px",
+                "display": "none",
+                "border-style": "none",
+                "width": "" + config.cornerWidth + "px",
+                "height": "" + config.cornerHeight + "px",
+                "position": "absolute",
+                "left": "" + ((config.cornerWidth * -1) + config.space + config.cornerWidth + 1) + "px",
+                "top": "" + ((config.height - config.cornerHeight) / 2 - 1) + "px",
+                "background": "url(" + url + ") no-repeat center"
+            });
+            that.box.find("div.Mqd_Validate_MessageBox_Icon").eq(0).css({
                 "margin": "0px",
                 "padding": "0px",
                 "display": "block",
-                "border": "0px solid red",
-                "width": "12px",
-                "height": "15px",
+                "border-style": "none",
+                //"background-color": "red",
+                "background-repeat": "no-repeat",
+                "background-position": "center",
+                "width": "" + config.iconWidth + "px",
+                "height": "" + config.iconHeight + "px",
+                "margin-left": "" + (config.space) + "px",
                 "position": "absolute",
-                "left": "-12px",
-                "top": "2px",
-                "background": "url(/Scripts/Mqd_Validate/corner1.gif) no-repeat center"
+                "left": "0px",
+                "top": "0px"
             });
+        }
+
+        function getPropInfo(el) {
+            /// <summary>获取元素属性信息</summary>
+            /// <returns type="Object" />
+            var leftBorderWidth = parseInt(el.css("border-left-width"), 10);
+            var rightBorderWidth = parseInt(el.css("border-right-width"), 10);
+            var leftPaddingWidth = parseInt(el.css("padding-left"), 10);
+            var rightPaddingWidth = parseInt(el.css("padding-right"), 10);
+            var width = el.width();
+            var topBorderWidth = parseInt(el.css("border-top-width"), 10);
+            var bottomBorderWidth = parseInt(el.css("border-bottom-width"), 10);
+            var topPaddingWidth = parseInt(el.css("padding-top"), 10);
+            var bottomPaddingWidth = parseInt(el.css("padding-bottom"), 10);
+            var height = el.height();
+            return {
+                wholeWidth: leftBorderWidth + leftPaddingWidth + width + rightPaddingWidth + rightBorderWidth,
+                wholeHeight: topBorderWidth + topPaddingWidth + height + bottomPaddingWidth + bottomBorderWidth
+            };
         }
 
         function setMesBoxPos() {
             /// <summary>设置消息框位置</summary>
-            var left = el.offset().left + el.width() + 8 + 12;
-            var top = el.offset().top - (22 - el.height() - 2) / 2;
+            var info = getPropInfo(el);
+            var left = el.offset().left + info.wholeWidth;
+            var top = el.offset().top - (config.height - info.wholeHeight) / 2;
             that.box.css({
                 "left": "" + left + "px",
                 "top": "" + top + "px"
@@ -231,10 +276,10 @@
             /// <summary>初始化</summary>
             /// <param name="el" type="Object">需要验证的$对象</param>
             var html = "";
-            html += '<div class="Mqd_Validate_InfoBox">';
-            html += "   <div class='Mqd_Validate_InfoIcon'></div>";
-            html += "   <div class='Mqd_Validate_InfoHtml'></div>";
-            html += "   <div class='Mqd_Validate_InfoCorner'></div>";
+            html += '<div class="Mqd_Validate_MessageBox">';
+            html += '   <div class="Mqd_Validate_MessageBox_HTML"></div>';
+            html += '   <div class="Mqd_Validate_MessageBox_Corner"></div>';
+            html += '   <div class="Mqd_Validate_MessageBox_Icon"></div>';
             html += "</div>";
             that.box = $(html);
             setMesBoxStyle();
@@ -248,21 +293,33 @@
             /// <param name="mes" type="String">要显示的消息</param>
             /// <param name="type" type="Number">信息类型,_mesType</param>
             var icon = getIcon(type);
-            if (!isStringNull(icon)) {
-                var url = getVirtualPath() + icon;
-                that.box.find("div.Mqd_Validate_InfoIcon").eq(0).css({
-                    "background-image": "url(" + url + ")",
-                    "display": "block"
+            var url = getVirtualPath() + icon;
+            if (type == _mesType.loading || type == _mesType.ok) {
+                that.box.find("div.Mqd_Validate_MessageBox_HTML").eq(0).hide();
+                that.box.find("div.Mqd_Validate_MessageBox_Corner").eq(0).hide();
+                that.box.find("div.Mqd_Validate_MessageBox_Icon").eq(0).show().css({
+                    "background-image": "url(" + url + ")"
                 });
             } else {
-                that.box.find("div.Mqd_Validate_InfoIcon").eq(0).css({
-                    "display": "none"
-                });
+                that.box.find("div.Mqd_Validate_MessageBox_HTML").eq(0).html(mes).css({
+                    "background-image": "url(" + url + ")"
+                }).show();
+                that.box.find("div.Mqd_Validate_MessageBox_Corner").eq(0).show();
+                that.box.find("div.Mqd_Validate_MessageBox_Icon").eq(0).hide();
+                if (type == _mesType.error) {
+                    var oldColor = that.box.find("div.Mqd_Validate_MessageBox_HTML").eq(0).css("color");
+                    that.box.find("div.Mqd_Validate_MessageBox_HTML").eq(0).css({ "color": "red" }).attr("oldcolor", oldColor);
+                } else {
+                    var oldColor = that.box.find("div.Mqd_Validate_MessageBox_HTML").eq(0).attr("oldcolor");
+                    that.box.find("div.Mqd_Validate_MessageBox_HTML").eq(0).css({ "color": oldColor });
+                }
             }
-            if (type == _mesType.ok) {
-                that.box.find("div.Mqd_Validate_InfoHtml").eq(0).hide();
+            if (type == _mesType.error) {
+                var oldBorder = el.css("border");
+                el.attr("oldborder", oldBorder).css({ "border-style": "outset ", "border-color": "red" });
             } else {
-                that.box.find("div.Mqd_Validate_InfoHtml").eq(0).html(mes).show();
+                var oldBorder = el.attr("oldborder");
+                el.css({ "border": oldBorder });
             }
             that.box.show();
         };
