@@ -6,6 +6,11 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
+    <style style="text/css">
+        td {
+            height: 25px;
+        }
+    </style>
     <script src="Scripts/jquery-1.8.2.intellisense.js"></script>
     <script src="Scripts/jquery-1.8.2.min.js"></script>
     <script src="Scripts/Mqd_Validate/Mqd.Validate.js"></script>

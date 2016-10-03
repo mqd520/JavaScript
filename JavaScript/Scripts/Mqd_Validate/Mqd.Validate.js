@@ -168,10 +168,13 @@
                 "position": "absolute",
                 "zIndex": "9901",
                 "display": "none",
-                "border": "0px solid red",
+                "border": "1px solid #ffc74c",
                 //"width": "300px",
-                //"background-color": "red",
-                "height": "22px"
+                "background-color": "#fffcc6",
+                "height": "22px",
+                "-moz-border-radius": "5px",
+                "-webkit-border-radius": "5px",
+                "padding-right": "5px"
             });
             that.box.find("div.Mqd_Validate_InfoIcon").eq(0).css({
                 "margin": "0px",
@@ -196,15 +199,28 @@
                 "font-size": "12px",
                 "over-flow": "hidden",
                 "padding-left": "2px",
+                "color": "gray",
                 "font-family": "微软雅黑",
                 //"background-color": "green"
+            });
+            that.box.find("div.Mqd_Validate_InfoCorner").eq(0).css({
+                "margin": "0px",
+                "padding": "0px",
+                "display": "block",
+                "border": "0px solid red",
+                "width": "12px",
+                "height": "15px",
+                "position": "absolute",
+                "left": "-12px",
+                "top": "2px",
+                "background": "url(/Scripts/Mqd_Validate/corner1.gif) no-repeat center"
             });
         }
 
         function setMesBoxPos() {
             /// <summary>设置消息框位置</summary>
-            var left = el.offset().left + el.width() + 10;
-            var top = el.offset().top;
+            var left = el.offset().left + el.width() + 8 + 12;
+            var top = el.offset().top - (22 - el.height() - 2) / 2;
             that.box.css({
                 "left": "" + left + "px",
                 "top": "" + top + "px"
@@ -218,6 +234,7 @@
             html += '<div class="Mqd_Validate_InfoBox">';
             html += "   <div class='Mqd_Validate_InfoIcon'></div>";
             html += "   <div class='Mqd_Validate_InfoHtml'></div>";
+            html += "   <div class='Mqd_Validate_InfoCorner'></div>";
             html += "</div>";
             that.box = $(html);
             setMesBoxStyle();

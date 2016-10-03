@@ -71,6 +71,7 @@
     <Content Include="Scripts\Mqd_Validate\ok.gif" />
     <Content Include="Scripts\Mqd_Validate\read me.txt" />
     <Content Include="Scripts\Mqd_Validate\tip.gif" />
+    <Content Include="Scripts\Mqd_Validate\corner.gif" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
